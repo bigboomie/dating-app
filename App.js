@@ -1,8 +1,11 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Provider } from 'react-redux';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import SignUpScreen from './src/screens/ProfileAuth/SignUpScreen';
 import PhoneNumberScreen from './src/screens/ProfileAuth/PhoneNumberScreen';
 import VerifyingCodeScreen from './src/screens/ProfileAuth/VerifyingCodeScreen';
@@ -13,6 +16,7 @@ import { GlobalStyles } from './src/constants/styles';
 import MatchesScreen from './src/screens/MainApp/MatchesScreen';
 import MessageScreen from './src/screens/MainApp/MessageScreen';
 import UserProfileScreen from './src/screens/MainApp/UserProfileScreen';
+import { store } from './src/store/store';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -108,7 +112,7 @@ const AuthStack = () => (
 
 export default function App() {
     return (
-        <>
+        <Provider store={store}>
             <StatusBar style="dark" />
             <NavigationContainer>
                 <Stack.Navigator
@@ -119,6 +123,6 @@ export default function App() {
                     <Stack.Screen name="Homepage" component={HomeBottomTab} />
                 </Stack.Navigator>
             </NavigationContainer>
-        </>
+        </Provider>
     );
 }
